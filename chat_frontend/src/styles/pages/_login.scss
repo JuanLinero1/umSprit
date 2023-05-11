@@ -1,0 +1,183 @@
+.login {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+
+  &__form {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    background-color: #362f3e;
+    padding: 0px 0 30px 0;
+    border-radius: 30px;
+    position: relative;
+    min-width: 300px;
+    width: 90%;
+    max-width: 800px;
+    min-width: 300px;
+
+    &--brand {
+      display: flex;
+      flex-flow: column wrap;
+      align-items: center;
+      color: white;
+      margin: 0 0 30px 0;
+      width: 100%;
+
+      img {
+        width: 90%;
+        max-width: 400px;
+        margin: 0 0 -80px 0;
+      }
+
+      h2 {
+        font-weight: 100;
+        font-size: 2rem;
+      }
+    }
+
+    &--questionnaire {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      width: 90%;
+
+      input {
+        font-size: 1.5rem;
+        padding: 2%;
+        border-radius: .5rem;
+        outline: none;
+        border: 2px solid black;
+        min-width: 260px;
+      }
+    }
+  }
+
+  button {
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    background-color: white;
+    border-radius: 10px;
+    position: relative;
+    z-index: 0;
+    cursor: pointer;
+    border: 2px solid black;
+    margin: 10px 0 0 0;
+  }
+
+  button:before {
+    content: '';
+    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: button-before 20s linear infinite;
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+    border-radius: 10px;
+  }
+
+  button:hover::before {
+    opacity: 1;
+  }
+
+
+  button:after {
+    z-index: -1;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: white;
+    left: 0;
+    top: 0;
+    border-radius: 10px;
+  }
+
+    &__register {
+    color: white;
+    font-size: 1.5rem;
+
+    a {
+      overflow-x: hidden;
+      display: inline-block;
+      color: #e99b9b;
+      transition: all .2s ease;
+      position: relative;
+      bottom: -7px;
+    }
+
+    a:hover::before {
+      content: '';
+      background-color: lightcoral;
+      position: absolute;
+      bottom: 0px;
+      left: 0px;
+      width: calc(100% + 4px);
+      height: 2px;
+      animation: link-before .2s linear;
+    }
+  }
+
+
+  @keyframes link-before {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(0%);
+    }
+  }
+
+  @keyframes button-before {
+    0% {
+      background-position: 0 0;
+    }
+
+    50% {
+      background-position: 400% 0;
+    }
+
+    100% {
+      background-position: 0 0;
+    }
+  }
+}
+@media only screen and (max-width: 400px) {
+  .login{
+    height: 113vh !important;
+
+    &__login{
+      font-size: 1.3rem;
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .login {
+    height: 140vh;
+    &__form {
+      &--questionnaire {
+        grid-template-columns: repeat(1, 1fr);
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .login__form--brand {
+    img {
+      margin: 0 0 -60px 0;
+    }
+  }
+}
