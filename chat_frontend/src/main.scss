@@ -1,0 +1,16 @@
+@use './styles/pages/_home.scss';
+@use './styles/pages/_login.scss';
+@use './styles/pages/_register.scss';
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+li{
+  list-style: none;
+}
