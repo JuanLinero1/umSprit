@@ -2,15 +2,25 @@
 @use './styles/pages/_login.scss';
 @use './styles/pages/_register.scss';
 
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Josefin";
 }
+
 a {
   text-decoration: none;
   color: inherit;
 }
-li{
+
+li {
   list-style: none;
+}
+
+body {
+  max-height: 100vh;
+  max-width: 100vw;
+  overflow-x: hidden;
+  background-color: #131324;
 }

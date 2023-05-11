@@ -7,25 +7,26 @@ const Register = () => {
     e.preventDefault();
     alert("form");
   };
-  const handleChange = () => {
-    
-  }
+  const handleChange = () => {};
   return (
-    <>
-      <formContainer>
-        <form onSubmit={(e) => handlSubmit(e)}>
-          <div className="brand">
-            <img src="" alt="" />
-            <h1>Weltraum</h1>
-          </div>
+    <div className="register">
+      <form className="register__form" onSubmit={(e) => handleSubmit(e)}>
+        <div className="register__form--brand">
+          <img
+            src="https://i.postimg.cc/3N52NS6m/personal-brand-default-removebg-preview.png"
+            alt="Weltraum Logo"
+          />
+          <h2>umSprit</h2> {/*  weltraum scpricth  */}
+        </div>
 
+        <div className="register__form--questionnaire">
           <input
             type="text"
             placeholder="Add a Username"
             name="Username"
             onChange={(e) => handleChange(e)}
             required
-          /> 
+          />
 
           <input
             type="email"
@@ -50,15 +51,16 @@ const Register = () => {
             onChange={(e) => handleChange(e)}
             required
           />
-        </form>
+        </div>
 
-        <button type="submit" >Create User</button>
-        <span>Already have an account? <Link to="/Login">Login</Link></span>
-      </formContainer>
-    </>
+        <button type="submit">Create User</button>
+      </form>
+
+      <span className="register__login">
+        Already have an account? <a href="/login">Login</a>
+      </span>
+    </div>
   );
 };
-
-const formContainer = styled.div``;
 
 export default Register;
