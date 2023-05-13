@@ -1,14 +1,70 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from 'axios'
+import { registerRoute } from "../utils/APIroutes";
 
 const Register = () => {
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    alert("form");
+  const navigate = useNavigate()
+  const [user, setUser] = useState({
+    userName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+  const toastOptions = {
+    position: "top-left",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
   };
-  const handleChange = () => {};
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if(handleValidation()){
+      console.log("IN VALIDATION", registerRoute)
+      const { password, userName, email } = user;
+      const {data} = await axios.post(registerRoute, {
+        userName, 
+        password, 
+        email,
+      })
+
+      console.log(data)
+      if(data.status === false){
+        toast.error(data.message, toastOptions)
+      } if(data.status === true){
+        localStorage.setItem('umSprit', JSON.stringify(data.user))
+      }
+      navigate('/')
+    }
+  };
+  const handleChange = (e) => {
+    setUser({ ...user, [e.target.name]: e.target.value });
+  };
+
+  const handleValidation = () => {
+    const { password, confirmPassword, userName, email } = user;
+    console.log(user  )
+    if (password.length < 8) {
+      toast.error("Passwords must be at least 8 characters", toastOptions);
+      return false;
+    } else if (password !== confirmPassword) {
+      toast.error("Passwords must be equal", toastOptions);
+      return false;
+    } else if (userName.length < 4) {
+      toast.error("name must be at least 4 characters", toastOptions);
+      return false;
+    }
+    return true;
+  };
   return (
     <div className="register">
+      <ToastContainer />
       <form className="register__form" onSubmit={(e) => handleSubmit(e)}>
         <div className="register__form--brand">
           <img
@@ -22,7 +78,7 @@ const Register = () => {
           <input
             type="text"
             placeholder="Add a Username"
-            name="Username"
+            name="userName"
             onChange={(e) => handleChange(e)}
             required
           />
@@ -30,7 +86,7 @@ const Register = () => {
           <input
             type="email"
             placeholder="Add an Email"
-            name="Email"
+            name="email"
             onChange={(e) => handleChange(e)}
             required
           />
@@ -38,7 +94,7 @@ const Register = () => {
           <input
             type="password"
             placeholder="Add a Password"
-            name="Password"
+            name="password"
             onChange={(e) => handleChange(e)}
             required
           />
@@ -61,5 +117,4 @@ const Register = () => {
     </div>
   );
 };
-
 export default Register;
