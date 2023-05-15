@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect  } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -6,6 +6,11 @@ import axios from 'axios'
 import { registerRoute } from "../utils/APIroutes";
 
 const Register = () => {
+  useEffect(() => {
+    if(localStorage.getItem('umSprit')){
+      navigate('/')
+    }
+  }, [])
   const navigate = useNavigate()
   const [user, setUser] = useState({
     userName: "",
@@ -34,13 +39,12 @@ const Register = () => {
         email,
       })
 
-      console.log(data)
       if(data.status === false){
         toast.error(data.message, toastOptions)
       } if(data.status === true){
-        localStorage.setItem('umSprit', JSON.stringify(data.user))
+        localStorage.setItem('umSpritUser', JSON.stringify(data.user))
+        navigate('/')
       }
-      navigate('/')
     }
   };
   const handleChange = (e) => {
@@ -49,7 +53,7 @@ const Register = () => {
 
   const handleValidation = () => {
     const { password, confirmPassword, userName, email } = user;
-    console.log(user  )
+    console.log(user)
     if (password.length < 8) {
       toast.error("Passwords must be at least 8 characters", toastOptions);
       return false;
